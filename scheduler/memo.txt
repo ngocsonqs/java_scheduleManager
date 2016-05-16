@@ -1,78 +1,77 @@
-Ÿ ’†ŠÔ‰Û‘è:
-
-Ÿ DB–¼F schedule
-1. userƒe[ƒuƒ‹
+â—†ã€€DBåï¼š schedule
+1. userãƒ†ãƒ¼ãƒ–ãƒ«
 
 CREATE TABLE user (
-username	VARCHAR(16)	NOT NULL, -- ƒ†[ƒU[–¼
-password	VARCHAR(16) NOT NULL, -- ƒpƒXƒ[ƒh
-name		VARCHAR(32) NOT NULL, -- –¼‘O
-birthday	DATE		NOT NULL, -- ¶”NŒŽ“ú
-admin_flg	INTEGER		NOT NULL	DEFAULT 0, -- 0:ˆê”Ê 1:ŠÇ—ŽÒ
-created		DATETIME	NOT NULL, -- ƒŒƒR[ƒh‚Ì“o˜^“úŽž
-modified	TIMESTAMP			, -- ƒŒƒR[ƒh‚ÌXV“úŽž
+username	VARCHAR(16)	NOT NULL, -- ãƒ¦ãƒ¼ã‚¶å
+password	VARCHAR(16) NOT NULL, -- ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
+name		VARCHAR(32) NOT NULL, -- åå‰
+birthday	DATE		NOT NULL, -- ç”Ÿå¹´æœˆæ—¥
+admin_flg	INTEGER		NOT NULL	DEFAULT 0, -- 0:ä¸€èˆ¬, 1:ç®¡ç†è€…
+created		DATETIME	NOT NULL, -- ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ç™»éŒ²æ—¥æ™‚
+modified	TIMESTAMP			, -- ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚
 PRIMARY KEY(username)
 )TYPE=InnoDB;
 
-2. scheduleƒe[ƒuƒ‹
+2. scheduleãƒ†ãƒ¼ãƒ–ãƒ«
 
 CREATE TABLE schedule (
-username		VARCHAR(16) 	NOT NULL, -- ƒ†[ƒU[–¼
-schedule_date	DATE			NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚Ì“ú•t
-schedule_time	TIME			NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚ÌŽžŠÔ
-title			VARCHAR(128)	NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚Ìƒ^ƒCƒgƒ‹
-content			TEXT			NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚Ì“à—e
-insert_datetime	DATETIME		NOT NULL, -- ƒŒƒR[ƒh‚ÌXV“úŽž
-update_datetime	TIMESTAMP				, -- ƒŒƒR[ƒh‚ÌXV“úŽž
+username		VARCHAR(16) 	NOT NULL, -- ãƒ¦ãƒ¼ã‚¶å
+schedule_date	DATE			NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®æ—¥ä»˜
+schedule_time	TIME			NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®æ™‚é–“
+title			VARCHAR(128)	NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®ã‚¿ã‚¤ãƒˆãƒ«
+content			TEXT			NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®å†…å®¹
+insert_datetime	DATETIME		NOT NULL, --ã€€ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ç™»éŒ²æ—¥æ™‚
+update_datetime	TIMESTAMP				, -- ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚
 PRIMARY KEY(username,schedule_date,schedule_time)
 )TYPE=InnoDB;
 
 ---phpmyadmin - user---
 CREATE TABLE `schedule`.`user` (
- `username` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒ†[ƒU–¼' ,
- `password` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒpƒXƒ[ƒh' ,
- `name` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '–¼‘O' ,
- `birthday` DATE NOT NULL COMMENT '¶”NŒŽ“ú' ,
- `admin_flg` INT NOT NULL DEFAULT '0' COMMENT '0: ˆê”Ê, 1:ŠÇ—ŽÒ' ,
- `created` DATETIME NOT NULL COMMENT 'ƒŒƒR[ƒh‚Ì“o˜^“úŽž' ,
- `modified` TIMESTAMP NULL COMMENT 'ƒŒƒR[ƒh‚ÌXV“úŽž' ,
- PRIMARY KEY (`username`)) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ƒ†[ƒU‚ðŠÇ—‚·‚éƒe[ƒuƒ‹';
+ `username` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ãƒ¦ãƒ¼ã‚¶å' ,
+ `password` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰' ,
+ `name` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'åå‰' ,
+ `birthday` DATE NOT NULL COMMENT 'ç”Ÿå¹´æœˆæ—¥' ,
+ `admin_flg` INT NOT NULL DEFAULT '0' COMMENT '0: ä¸€èˆ¬, 1:ç®¡ç†è€…' ,
+ `created` DATETIME NOT NULL COMMENT 'ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ç™»éŒ²æ—¥æ™‚' ,
+ `modified` TIMESTAMP NULL COMMENT 'ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚' ,
+ PRIMARY KEY (`username`)) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ãƒ¦ãƒ¼ã‚¶ã‚’ç®¡ç†ã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ«';
+ 
 ---cmd -user ---
 mysql> CREATE TABLE user (
-    -> username VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒ†[ƒU–¼',
-    -> password VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒpƒXƒ[ƒh',
-    -> name VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '–¼‘O',
-    -> birthday DATE NOT NULL COMMENT '¶”NŒŽ“ú',
-    -> admin_flg INTEGER NOT NULL DEFAULT 0 COMMENT '0:ˆê”Ê, 1:ŠÇ—ŽÒ',
-    -> created DATETIME NOT NULL COMMENT 'ƒŒƒR[ƒh‚Ì“o˜^“úŽž',
-    -> modified TIMESTAMP NULL COMMENT 'ƒŒƒR[ƒh‚ÌXV“úŽž',
+    -> username VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ãƒ¦ãƒ¼ã‚¶å',
+    -> password VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰',
+    -> name VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'åå‰',
+    -> birthday DATE NOT NULL COMMENT 'ç”Ÿå¹´æœˆæ—¥',
+    -> admin_flg INTEGER NOT NULL DEFAULT 0 COMMENT '0: ä¸€èˆ¬, 1:ç®¡ç†è€…',
+    -> created DATETIME NOT NULL COMMENT 'ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ç™»éŒ²æ—¥æ™‚',
+    -> modified TIMESTAMP NULL COMMENT 'ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚',
     -> PRIMARY KEY (username)
     -> ) ENGINE = InnoDB
-    -> CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ƒ†[ƒU‚ðŠÇ—‚·‚éƒe[ƒuƒ‹';
+    -> CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ãƒ¦ãƒ¼ã‚¶ã‚’ç®¡ç†ã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ«';
 
 ------phpmyadmin - schedule-----------
 CREATE TABLE `schedule`.`a` (
- `username` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒ†[ƒU–¼' ,
- `schedule_date` DATE NOT NULL COMMENT 'ƒXƒPƒWƒ…[ƒ‹‚Ì“ú•t' ,
- `schedule_time` TIME NOT NULL COMMENT 'ƒXƒPƒWƒ…[ƒ‹‚ÌŽžŠÔ' ,
- `title` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒXƒPƒWƒ…[ƒ‹‚Ìƒ^ƒCƒgƒ‹' ,
- `content` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ƒXƒPƒWƒ…[ƒ‹‚Ì“à—e' ,
- `insert_datetime` DATETIME NOT NULL COMMENT 'ƒŒƒR[ƒh‚Ì“o˜^“úŽž' ,
- `update_datetime` TIMESTAMP NULL COMMENT 'ƒŒƒR[ƒh‚ÌXV“úŽž' ,
+ `username` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ãƒ¦ãƒ¼ã‚¶å' ,
+ `schedule_date` DATE NOT NULL COMMENT 'ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®æ—¥ä»˜' ,
+ `schedule_time` TIME NOT NULL COMMENT 'ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®æ™‚é–“' ,
+ `title` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®ã‚¿ã‚¤ãƒˆãƒ«' ,
+ `content` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®å†…å®¹' ,
+ `insert_datetime` DATETIME NOT NULL COMMENT 'ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ç™»éŒ²æ—¥æ™‚' ,
+ `update_datetime` TIMESTAMP NULL COMMENT 'ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚' ,
  PRIMARY KEY (`username`, `schedule_date`, `schedule_time`)
 ) ENGINE = InnoDB
- CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ƒXƒPƒWƒ…[ƒ‹‚ðŠÇ—‚·‚éƒe[ƒuƒ‹';
+ CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’ç®¡ç†ã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ«';
 
 
 -----cmd -schedule -------
 mysql> CREATE TABLE schedule (
-    -> username VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ƒ†[ƒU–¼
-    -> schedule_date DATE NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚Ì“ú•t
-    -> schedule_time TIME NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚ÌŽžŠÔ
-    -> title VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ƒXƒPƒWƒ…[ƒ‹‚Ìƒ^ƒCƒgƒ‹
-    -> content TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ƒŒƒR[ƒh‚ÌXV“úŽž
-    -> insert_datetime DATETIME NOT NULL, -- ƒŒƒR[ƒh‚ÌXV“úŽž
-    -> update_datetime TIMESTAMP NULL, -- ƒŒƒR[ƒh‚ÌXV“úŽž
+    -> username VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ãƒ¦ãƒ¼ã‚¶å
+    -> schedule_date DATE NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®æ—¥ä»˜
+    -> schedule_time TIME NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®æ™‚é–“
+    -> title VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ã®ã‚¿ã‚¤ãƒˆãƒ«
+    -> content TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚
+    -> insert_datetime DATETIME NOT NULL, -- ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ç™»éŒ²æ—¥æ™‚
+    -> update_datetime TIMESTAMP NULL, -- ãƒ¬ã‚³ãƒ¼ãƒ‰ã®æ›´æ–°æ—¥æ™‚
     -> PRIMARY KEY(username, schedule_date, schedule_time)
     -> ) ENGINE = InnoDB
     -> CHARACTER SET utf8 COLLATE utf8_general_ci;
