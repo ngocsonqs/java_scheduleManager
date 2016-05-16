@@ -1,0 +1,20 @@
+package jp.co.bangoku.scheduler;
+
+/**
+ * スケジュールメイン（mainメソッド）
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class Scheduler {
+	public static void main(String[] args) {
+		try {
+			CuiAppManager.initialize();
+			System.out.println("スケジュール管理アプリケーション");
+			CuiAppManager.run();
+		} catch (Exception e) {
+			System.out.println("システムエラーが発生しました。");
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+}

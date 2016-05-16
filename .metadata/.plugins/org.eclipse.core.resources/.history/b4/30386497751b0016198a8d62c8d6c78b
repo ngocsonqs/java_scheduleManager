@@ -1,0 +1,10 @@
+package jp.co.dhw.osaka.scheduler.user;
+
+/**
+ * パスワード変更
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class UserPasswordUpdate {
+
+}

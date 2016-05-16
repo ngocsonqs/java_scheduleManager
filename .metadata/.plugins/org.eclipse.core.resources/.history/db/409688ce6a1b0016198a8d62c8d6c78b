@@ -1,0 +1,19 @@
+package jp.co.bangoku.scheduler.main;
+
+import jp.co.whizz_tech.ocean.cui.CuiAppBase;
+
+/**
+ * アプリケーションの終了
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class ExitApp extends CuiAppBase{
+	/**
+	 * アプリケーションを実行します。
+	 */
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+}

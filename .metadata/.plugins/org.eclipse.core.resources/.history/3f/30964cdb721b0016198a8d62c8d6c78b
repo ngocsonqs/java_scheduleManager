@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ocean-config>
+<init-parameters>
+	<parameter name="driverclass" value="com.mysql.jdbc.Driver" />
+	<parameter name="url" value="jdbc:mysql://localhost/scheduler" />
+	<parameter name="user" value="" />
+	<parameter name="password" value="" />
+</init-parameters>
+
+<application>
+	<rootmenu type="jp.co.bangoku.scheduler.menu.MainMenu" name="メインメニュー">
+	    <app type="jp.co.bangoku.schedulermain.Login" name="ログイン" ></app>
+<!-- 		<menu type="jp.co.bangoku.scheduler.Scheduler" name="サンプルメニュー" > -->
+<!--
+			<app type="jp.co.whizz_tech.oceansample.main.SampleApp1" name="アプリ1" />
+-->
+<!-- 		</menu> -->
+
+		<app type="jp.co.bangoku.scheduler.main.ExitApp" name="終了" ></app>
+	</rootmenu>
+</application>
+
+</ocean-config>
+

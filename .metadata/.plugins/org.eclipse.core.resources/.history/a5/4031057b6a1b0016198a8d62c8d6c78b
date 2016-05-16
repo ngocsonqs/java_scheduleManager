@@ -1,0 +1,21 @@
+package jp.co.bangoku.scheduler;
+
+import jp.co.whizz_tech.ocean.cui.CuiAppManager;
+
+/**
+ * スケジュールメイン（mainメソッド）
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class Scheduler {
+	public static void main(String[] args) {
+		try {
+			CuiAppManager.initialize();
+			System.out.println("スケジュール管理アプリケーション");
+			CuiAppManager.run();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
