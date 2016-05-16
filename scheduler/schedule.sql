@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016 年 5 朁E16 日 22:01
+-- Generation Time: 2016 年 5 朁E17 日 02:14
 -- サーバのバージョン： 5.6.25
 -- PHP Version: 5.6.11
 
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(16) NOT NULL COMMENT 'ユーザ名',
   `password` varchar(16) NOT NULL COMMENT 'パスワード',
+  `name` varchar(32) NOT NULL COMMENT '名前',
   `birthday` date NOT NULL COMMENT '名前',
   `admin_flg` int(11) NOT NULL DEFAULT '0' COMMENT '0:一般, 1:管理者',
   `created` datetime NOT NULL COMMENT 'レコードの登録日時',

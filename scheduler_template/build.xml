@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+
+<project name="scheduler" default="compile" basedir=".">
+
+	<property name="src.dir" value="src" />
+	<property name="classes.dir" value="classes" />
+	<property name="javadoc.dir" value="javadoc" />
+	<property name="debug.dir" value="debug" />
+	<property name="release.dir" value="release" />
+	<property name="dist.name" value="scheduler.jar" />
+	<property name="lib.dir" value="lib" />
+	<property name="tools.dir" value="tools" />
+
+	<!-- コンパイル -->
+	<target name="compile" description="コンパイルをします">
+		<mkdir dir="${classes.dir}" />
+		<javac debug="${javac.debug}" srcdir="${src.dir}" destdir="${classes.dir}">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- JavaDoc生成 -->
+	<target name="javadoc" description="JavaDocを作成します">
+		<mkdir dir="${javadoc.dir}" />
+		<javadoc destdir="${javadoc.dir}">
+			<fileset dir="${src.dir}" />
+		</javadoc>
+	</target>
+
+	<!-- デバッグ版作成 -->
+	<target name="debug" description="デバッグ版を作成します">
+		<antcall target="compile">
+			<param name="javac.debug" value="on" />
+		</antcall>
+		<antcall target="-jar">
+			<param name="dist.dir" value="${debug.dir}" />
+		</antcall>
+	</target>
+
+	<!-- リリース版作成 -->
+	<target name="release" description="リリース版を作成します">
+		<antcall target="compile">
+			<param name="javac.debug" value="off" />
+		</antcall>
+		<antcall target="-jar">
+			<param name="dist.dir" value="${release.dir}" />
+		</antcall>
+	</target>
+
+	<!-- jar作成 -->
+	<target name="-jar">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/${dist.name}" basedir="${classes.dir}" />
+		<copy todir="${dist.dir}" >
+			<fileset dir="${tools.dir}" />
+		</copy>
+		<copy todir="${dist.dir}/lib">
+			<fileset dir="${lib.dir}"  />
+		</copy>
+		<mkdir dir="${dist.dir}/log" />
+	</target>
+
+	<!-- お掃除 -->
+	<target name="clean">
+		<delete dir="${classes.dir}" />
+		<delete dir="${javadoc.dir}" />
+		<delete dir="${debug.dir}" />
+		<delete dir="${release.dir}" />
+	</target>
+
+</project>

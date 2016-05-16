@@ -1,0 +1,26 @@
+package jp.co.dhw.osaka.scheduler.util;
+
+/**
+ * データベースのユーティリティクラスです。
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class DBUtil {
+    /** JDBCドライバ名 */
+	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	
+	/** ホスト名 */
+	private static final String HOST_NAME = "localhost";
+	
+	/** データベース名 */
+	private static final String DATABASE_NAME = "schedule";
+	
+	/** DB接続URL */
+	private static final String URL = "jdbc:mysql://" + HOST_NAME + "/" + DATABASE_NAME + "?useUnicode=true&characterEncoding=utf8&useSSL=false";
+	
+	/** DBユーザ名 */
+	private static final String USERNAME = "ngocsonqs";
+	
+	/** DBパスワード */
+	private static final String PASSWORD = "y3ulasai";
+}
