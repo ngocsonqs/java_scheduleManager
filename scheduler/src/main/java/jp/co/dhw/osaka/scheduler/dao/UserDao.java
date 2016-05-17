@@ -21,10 +21,19 @@ public class UserDao {
 	private Connection con;
 
 	/** ID検索SQL */
-	private static final String FIND_BY_ID_SQL = "SELECT * " + "FROM user " + "WHERE id = ?";
+	private static final String FIND_BY_ID_SQL = "SELECT * "
+											   + "FROM user "
+											   + "WHERE id = ?";
 
 	 /** データ登録のSQL */
-	private static final String INSERT_SQL = "INSERT INTO user (username, password, name, birthday, admin_flg, created) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_SQL
+				= "INSERT INTO user (username"
+								+ ", password"
+								+ ", name,"
+								+ " birthday"
+								+ ", admin_flg"
+								+ ", created)"
+						+ " VALUES (?, ?, ?, ?, ?, ?)";
 
 	/**
 	 * このクラスのオブジェクトを構築します。
