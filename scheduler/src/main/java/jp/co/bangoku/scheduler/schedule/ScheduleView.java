@@ -3,7 +3,7 @@ package jp.co.bangoku.scheduler.schedule;
 import jp.co.whizz_tech.ocean.cui.CuiMenu;
 
 /**
- * ƒXƒPƒWƒ…[ƒ‹Šm”F
+ * ã‚¹ã‚±ã‚¸ãƒ¥ãƒ¼ãƒ«ç¢ºèª
  * @author bangoku
  * @date 2016/05/16
  */

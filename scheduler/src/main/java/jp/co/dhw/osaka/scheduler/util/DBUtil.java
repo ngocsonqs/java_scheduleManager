@@ -6,49 +6,54 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jp.co.whizz_tech.ocean.config.ParameterConfig;
+import jp.co.whizz_tech.ocean.cui.CuiAppManager;
+
 /**
- * ƒf[ƒ^ƒx[ƒX‚Ìƒ†[ƒeƒBƒŠƒeƒBƒNƒ‰ƒX‚Å‚·B
+ * DBã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
+ * 
  * @author bangoku
  * @date 2016/05/16
  */
 public final class DBUtil {
-    /** JDBCƒhƒ‰ƒCƒo–¼ */
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	static ParameterConfig config = CuiAppManager.getParameterConfig();
+
+	/** JDBCãƒ‰ãƒ©ã‚¤ãƒå */
+	private static String jdbcDriver = config.getParameter("driverclass");
+
+	/** DBæ¥ç¶šURL */
+	private static String url = config.getParameter("url");
 	
-	/** ƒzƒXƒg–¼ */
-	private static final String HOST_NAME = "localhost";
+	/** DBãƒ¦ãƒ¼ã‚¶å */
+	private static String user = config.getParameter("user");
 	
-	/** ƒf[ƒ^ƒx[ƒX–¼ */
-	private static final String DATABASE_NAME = "schedule";
-	
-	/** DBÚ‘±URL */
-	private static final String URL = "jdbc:mysql://" + HOST_NAME + "/" + DATABASE_NAME + "?useUnicode=true&characterEncoding=utf8&useSSL=false";
-	
-	/** DBƒ†[ƒU–¼ */
-	private static final String USERNAME = "ngocsonqs";
-	
-	/** DBƒpƒXƒ[ƒh */
-	private static final String PASSWORD = "y3ulasai";
+	/** DBãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ */
+	private static String password = config.getParameter("password");
 	
 	/**
-	 * ƒf[ƒ^ƒx[ƒX‚ÉÚ‘±‚µ‚Ü‚·B
-	 * @return ConnectionƒIƒuƒWƒFƒNƒg
-	 * @throws ClassNotFoundException JDBCƒhƒ‰ƒCƒo‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡
-	 * @throws SQLException@Ú‘±‚É¸”s‚µ‚½ê‡
+	 * ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«æ¥ç¶šã—ã¾ã™ã€‚
+	 * 
+	 * @return Connectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	 * @throws ClassNotFoundException
+	 *             JDBCãƒ‰ãƒ©ã‚¤ãƒãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆ
+	 * @throws SQLException
+	 *             æ¥ç¶šã«å¤±æ•—ã—ãŸå ´åˆ
 	 */
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		// 1. JDBCƒhƒ‰ƒCƒo‚Ìƒ[ƒh
-		Class.forName(JDBC_DRIVER);
-		
-		// 2. ƒf[ƒ^ƒx[ƒX‚ÌÚ‘±
-		Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-		
+		// 1. JDBCãƒ‰ãƒ©ã‚¤ãƒã®ãƒ­ãƒ¼ãƒ‰
+		Class.forName(jdbcDriver);
+
+		// 2. ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã¸ã®æ¥ç¶š
+		Connection con = DriverManager.getConnection(url, user, password);
+
 		return con;
 	}
-	
+
 	/**
-	 * Connection‚ğƒNƒ[ƒY‚µ‚Ü‚·B
-	 * @param con ConnectionƒIƒuƒWƒFƒNƒg
+	 * Connectionã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã—ã¾ã™ã€‚
+	 * 
+	 * @param con
+	 *            Connectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	 */
 	public static void close(Connection con) {
 		if (con != null) {
@@ -59,10 +64,12 @@ public final class DBUtil {
 			}
 		}
 	}
-	
+
 	/**
-	 * PreparedStatement‚ğƒNƒ[ƒY‚µ‚Ü‚·B
-	 * @param pstmt PreparedStatementƒIƒuƒWƒFƒNƒg
+	 * PreparedStatementã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã—ã¾ã™ã€‚
+	 * 
+	 * @param pstmt
+	 *            PreparedStatementã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	 */
 	public static void close(PreparedStatement pstmt) {
 		if (pstmt != null) {
@@ -73,10 +80,12 @@ public final class DBUtil {
 			}
 		}
 	}
-	
+
 	/**
-	 * ResultSet‚ğƒNƒ[ƒY‚µ‚Ü‚·B
-	 * @param rs ResultSetƒIƒuƒWƒFƒNƒg
+	 * ResultSetã‚’ã‚¯ãƒ­ãƒ¼ã‚ºã—ã¾ã™ã€‚
+	 * 
+	 * @param rs
+	 *            ResultSetã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	 */
 	public static void close(ResultSet rs) {
 		if (rs != null) {

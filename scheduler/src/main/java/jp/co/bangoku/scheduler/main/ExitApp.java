@@ -4,18 +4,18 @@ import jp.co.whizz_tech.ocean.cui.CuiAppBase;
 import jp.co.whizz_tech.ocean.cui.CuiAppManager;
 
 /**
- * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌI—¹‚ğs‚¤ƒNƒ‰ƒX‚Å‚·B
+ * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚½ãƒ³ã®çµ‚äº†ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * @author bangoku
  * @date 2016/05/16
  */
 public class ExitApp extends CuiAppBase{
 	/**
-	 * ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğÀs‚µ‚Ü‚·B
+	 * ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
 	 */
 	@Override
 	public void execute() {
-		if (inputBoolean("I—¹‚µ‚Ä‚à‚æ‚ë‚µ‚¢‚Å‚·‚©?")) {
-			System.out.println("\nI—¹‚µ‚Ü‚·...");
+		if (inputBoolean("çµ‚äº†ã—ã¦ã‚‚ã‚ˆã‚ã—ã§ã™ã‹?")) {
+			System.out.println("\nçµ‚äº†ã—ã¾ã™...");
 			CuiAppManager.exit();
 		}
 	}

@@ -1,0 +1,32 @@
+package jp.co.bangoku.scheduler;
+
+import jp.co.dhw.osaka.scheduler.util.DBUtil;
+import jp.co.whizz_tech.ocean.cui.CuiAppManager;
+import jp.co.whizz_tech.ocean.cui.CuiMenu;
+
+/**
+ * スケジュールメイン
+ * 
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class Scheduler extends CuiMenu {
+	/**
+	 * メイン
+	 * 
+	 * @param args
+	 *            メインオプション
+	 */
+	public static void main(String[] args) {
+		try {
+			CuiAppManager.initialize();
+			System.out.println("スケジュール管理アプリケーション。");
+//			System.out.println(DBUtil.password);
+			CuiAppManager.run();
+		} catch (Exception e) {
+			System.err.println("システムエラーが発生しました。");
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+}

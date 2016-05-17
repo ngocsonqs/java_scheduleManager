@@ -5,3 +5,5 @@ problem_imports=warning
 problem_properties=ignore
 problem_security=warning
 problem_tasks=ignore
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

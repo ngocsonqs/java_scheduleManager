@@ -3,7 +3,7 @@ package jp.co.bangoku.scheduler.main;
 import jp.co.whizz_tech.ocean.cui.CuiMenu;
 
 /**
- * ログインをするクラスです。
+ * 繝ｭ繧ｰ繧､繝ｳ繧偵☆繧九け繝ｩ繧ｹ縺ｧ縺吶�
  * @author bangoku
  * @date 2016/05/16
  */

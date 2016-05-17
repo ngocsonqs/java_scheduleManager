@@ -1,0 +1,126 @@
+package jp.co.dhw.osaka.scheduler.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+
+import jp.co.dhw.osaka.scheduler.entity.User;
+import jp.co.dhw.osaka.scheduler.util.DBUtil;
+
+/**
+ * userテーブルにアクセスするクラスです。
+ * 
+ * @author bangoku
+ * @date 2016/05/17
+ */
+public class UserDao {
+
+	/** データベースに接続 */
+	private Connection con;
+
+	/** ID検索SQL */
+	private static final String FIND_BY_ID_SQL = "SELECT * "
+											   + "FROM user "
+											   + "WHERE id = ?";
+
+//	/** データ登録のSQL */
+//	private static final String INSERT_SQL 
+//				= "INSERT INTO user ("
+//									+ "username,"
+//									+ " password,"
+//									+ " name,"
+//									+ " birthday,"
+//									+ " admin_flg,"
+//									+ " created)"
+//						+ " VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_SQL = "INSERT INTO user (username, password, name, birthday, admin_flg, created) VALUES (?, ?, ?, ?, ?, ?)";
+	/**
+	 * このクラスのオブジェクトを構築します。
+	 * 
+	 * @param con
+	 *            データベース接続
+	 */
+	public UserDao(Connection con) {
+		this.con = con;
+	}
+
+	/**
+	 * 指定のIDで検索します
+	 * 
+	 * @param id
+	 *            ID
+	 * @return Userオブジェクト、見つからない場合はnull
+	 * @throws SQLException
+	 *             データベース例外が発生した場合
+	 */
+	public User findById(int id) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		User user = null;
+		try {
+			pstmt = con.prepareStatement(FIND_BY_ID_SQL);
+
+			pstmt.setInt(1, id);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				user = new User();
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				user.setName(rs.getString("name"));
+				user.setBirthday(rs.getDate("birthday"));
+				// user.setCreated(rs.getTimestamp("created"));
+				user.setCreated(rs.getTimestamp("created"));
+			}
+		} finally {
+			DBUtil.close(pstmt);
+			DBUtil.close(rs);
+		}
+		return user;
+	}
+//	INSERT INTO user (`username`, `password`, `name`, `birthday`, `admin_flg`, `created`) VALUES ('duongvan', '123456', 'van', '1994-12-02', 0, NOW());
+
+	/**
+	 * ユーザ登録するときに、データベースにデータを登録をします。
+	 * 
+	 * @param user
+	 *            Userオブジェクト
+	 * @return 登録件数、登録されない場合は0
+	 * @throws SQLException
+	 *             データベースの例外が発生した場合
+	 */
+	/**
+	 *　ユーザ情報登録をします。
+	 * @param user userオブジェクト
+	 * @return 登録件数、登録されない場合は0
+	 * @throws SQLException データベース例外が発生した場合
+	 * @throws ParseException　生年月日のパース例外が発生した場合
+	 */
+	public int insert(User user) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int insertedCount = 0;
+
+		try {
+			pstmt = con.prepareStatement(INSERT_SQL);
+			pstmt.setString(1, user.getUsername());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getName());
+			pstmt.setDate(4, user.getBirthday());
+			pstmt.setInt(5, user.getAdminFlag());
+			pstmt.setTimestamp(6, user.getCreated());
+
+			// SQL実行
+//			insertedCount = pstmt.executeUpdate();
+			System.out.println(pstmt.toString());
+		} finally {
+			DBUtil.close(pstmt);
+			DBUtil.close(rs);
+		}
+		return insertedCount;
+	}
+}

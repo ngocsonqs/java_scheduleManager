@@ -1,0 +1,5 @@
+package jp.co.dhw.osaka.scheduler.dao;
+
+public class UserDao {
+
+}

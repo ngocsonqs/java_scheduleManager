@@ -3,9 +3,9 @@
 <ocean-config>
 <init-parameters>
 	<parameter name="driverclass" value="com.mysql.jdbc.Driver" />
-	<parameter name="url" value="jdbc:mysql://localhost/scheduler" />
-	<parameter name="user" value="" />
-	<parameter name="password" value="" />
+	<parameter name="url" value="jdbc:mysql://localhost/schedule" />
+	<parameter name="user" value="ngocsonqs" />
+	<parameter name="password" value="y3ulasai" />
 </init-parameters>
 
 <application>

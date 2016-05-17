@@ -1,7 +1,8 @@
 package jp.co.bangoku.scheduler;
 
 /**
- * ログインユーザ保持用
+ * 繝ｭ繧ｰ繧､繝ｳ
+ * 
  * @author bangoku
  * @date 2016/05/16
  */

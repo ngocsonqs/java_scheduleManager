@@ -1,43 +1,81 @@
 package jp.co.dhw.osaka.scheduler.user;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import jp.co.dhw.osaka.scheduler.dao.UserDao;
+import jp.co.dhw.osaka.scheduler.entity.User;
+import jp.co.dhw.osaka.scheduler.util.DBUtil;
 import jp.co.whizz_tech.ocean.cui.CuiAppBase;
 
 /**
- * ƒ†[ƒU“o˜^‚ğs‚¤ƒNƒ‰ƒX‚Å‚·B
+ * ãƒ¦ãƒ¼ã‚¶ç™»éŒ²
+ * 
  * @author bangoku
- * @date 2016/05/16
+ * @date 2016/05/17
  */
 public class UserRegister extends CuiAppBase {
 
-	/**
-	 * ƒ†[ƒU“o˜^‚ğs‚¤
-	 */
 	@Override
 	public void execute() {
-		// ƒ†[ƒU–¼
-		String username = inputStr("ƒ†[ƒU–¼‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B", "“ü—Í‰Â”\‚Èƒ†[ƒU–¼‚ÌÅ‘å’·‚ğ’´‚¦‚Ä‚¢‚Ü‚·B", 16);
-		System.out.println(username);
-		
-		// ƒpƒXƒ[ƒh
-		String password = inputStr("ƒpƒXƒ[ƒh‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B", "“ü—Í‰Â”\‚ÈƒpƒXƒ[ƒh‚ÌÅ‘å’·‚ğ’´‚¦‚Ä‚¢‚Ü‚·B", 16);
-		System.out.println(password);
-		
-		// –¼
-		String name     = inputStr("–¼‘O‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B", "“ü—Í‰Â”\‚È–¼‘O‚ÌÅ‘å’·‚ğ’´‚¦‚Ä‚¢‚Ü‚·B", 32);
-		System.out.println(name);
-		
-		// ’a¶“ú
-		String birthday = inputDate("¶”NŒ“ú‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢", "¶”NŒ“ú‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñB", "yyyyMMdd");
-//		try {
-//			java.util.Date bday = new SimpleDateFormat("yyyyMMdd").parse(birthday);
-//		} catch (ParseException e) {
-//			System.err.println("¶”NŒ“ú‚Ìƒp[ƒX‚É¸”s‚µ‚Ü‚µ‚½B");
-//			e.printStackTrace();
-//		}
-		System.out.println(birthday);
-		
+		Connection con = null;
+		System.out.println("ç™»éŒ²ã‚’é–‹å§‹ã—ã¾ã™ã€‚");
+		try {
+			// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«æ¥ç¶š
+			con = DBUtil.getConnection();
+
+			// DAOç”Ÿæˆ
+			UserDao userDao = new UserDao(con);
+
+			// Studentç”Ÿæˆ
+			User user = new User();
+
+			// ãƒ¦ãƒ¼ã‚¶åå…¥åŠ›
+			String username = inputStr("ãƒ¦ãƒ¼ã‚¶åã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", "ãƒ¦ãƒ¼ã‚¶åã®é•·ã•ã¯ç¯„å›²ã‚’è¶…ãˆã¦ã„ã¾ã™ã®ã§ã€å†å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", 16);
+			user.setUsername(username);
+
+			// ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰å…¥åŠ›
+			String password = inputStr("ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", "ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã®é•·ã•ã¯ç¯„å›²ã‚’è¶…ãˆã¦ã„ã¾ã™ã®ã§ã€å†å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", 16);
+			user.setPassword(password);
+
+			// åå‰å…¥åŠ›
+			String name = inputStr("åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", "åå‰ã®é•·ã•ã¯ç¯„å›²ã‚’è¶…ãˆã¦ã„ã¾ã™ã®ã§ã€å†å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", 32);
+			user.setName(name);
+
+			// ç”Ÿå¹´æœˆæ—¥å…¥åŠ›
+			String bday = inputDate("ç”Ÿå¹´æœˆæ—¥ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", "å…¥åŠ›ã—ãŸç”Ÿå¹´æœˆæ—¥ã¯ãƒ‘ã‚¿ãƒ¼ãƒ³ã¨ä¸€è‡´ã—ã¾ã›ã‚“ã®ã§ã€å†å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", "yyyyMMdd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			java.util.Date birthday = sdf.parse(bday);
+			user.setBirthday(new java.sql.Date(birthday.getTime()));
+
+			// ç®¡ç†è€…ã‹ã©ã†ã‹
+			int adminFlag = (inputBoolean("ã‚ãªãŸã¯ä¸€èˆ¬ãªãƒ¦ãƒ¼ã‚¶ã§ã™ã‹? (y/n)")) ? 0 : 1;
+			user.setAdminFlag(adminFlag);
+
+			// ç™»éŒ²æ—¥æ™‚
+			java.util.Date today = new java.util.Date();
+			user.setCreated(new java.sql.Timestamp(today.getTime()));
+
+			// insert SQLã‚’å®Ÿè¡Œ
+			int count = userDao.insert(user);
+
+			// çµæœå‡ºåŠ›
+			System.out.println(count + "ä»¶ç™»éŒ²ã—ã¾ã—ãŸã€‚");
+
+		} catch (ClassNotFoundException e) {
+			System.err.println("JDBCãƒ‰ãƒ©ã‚¤ãƒãŒãƒ­ãƒ¼ãƒ‰ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.err.println("SQLä¾‹å¤–ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚");
+			e.printStackTrace();
+		} catch (ParseException e) {
+			System.err.println("èª•ç”Ÿæ—¥ã®ãƒãƒ¼ã‚¹ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(con);
+		}
 	}
+
 }

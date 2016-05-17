@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<ocean-config>
+<init-parameters>
+	<parameter name="driverclass" value="com.mysql.jdbc.Driver" />
+	<parameter name="url" value="jdbc:mysql://localhost/scheduler" />
+	<parameter name="user" value="ngocsonqs" />
+	<parameter name="password" value="y3ulasai" />
+</init-parameters>
+
+<application>
+	<rootmenu type="jp.co.bangoku.scheduler.menu.MainMenu" name="メインメニュー">
+	    <!-- START メインメニュー -->
+	    <app type="jp.co.bangoku.scheduler.main.Login" name="ログイン" ></app>
+	    <!-- END メインメニュー -->
+	    
+	    <!-- START スケジュール管理 -->
+	    <menu type="jp.co.bangoku.scheduler.menu.SchedulerManagementMenu" name="スケジュール管理" >
+	        <app type="jp.co.bangoku.scheduler.schedule.ScheduleRegister" name="スケジュール登録" />
+	        <app type="jp.co.bangoku.scheduler.schedule.ScheduleView" name="スケジュール確認" />
+	        <app type="jp.co.bangoku.scheduler.schedule.ScheduleUpdate" name="スケジュール更新" />
+	        <app type="jp.co.bangoku.scheduler.schedule.ScheduleDelete" name="スケジュール削除" />
+	        <app type="jp.co.bangoku.scheduler.schedule.ScheduleOutputToCsv" name="スケジュール出力" />
+	    </menu>
+	    <!-- END スケジュール管理 -->
+	    
+	    <!-- START ユーザ管理 -->
+	    <menu type="jp.co.bangoku.scheduler.menu.UserManagementMenu" name="ユーザ管理" >
+	        <app type="jp.co.dhw.osaka.scheduler.user.UserRegister" name="ユーザ登録" />
+	        <app type="jp.co.dhw.osaka.scheduler.user.UserPasswordUpdate" name="パスワード変更" />
+	    </menu>
+	    <!-- END ユーザ管理 -->
+	    
+	    <!-- START システム管理 -->
+	    <menu type="jp.co.bangoku.scheduler.menu.SystemManagementMenu" name="システム管理" >
+	        <app type="jp.co.dhw.osaka.scheduler.admin.UserDelete" name="ユーザ削除" />
+	        <app type="jp.co.dhw.osaka.scheduler.admin.UserOutputToCsv" name="ユーザ一覧出力" />
+	    </menu>
+	    <!-- END システム管理 -->
+	    
+	    <!-- START ログアウト -->
+	    <app type="jp.co.bangoku.scheduler.main.Logout" name="ログアウト" ></app>
+	    <!-- END ログアウト -->
+	    
+	    <!-- START 終了 -->
+		<app type="jp.co.bangoku.scheduler.main.ExitApp" name="終了" ></app>
+		<!-- END 終了 -->
+	</rootmenu>
+</application>
+
+</ocean-config>
+

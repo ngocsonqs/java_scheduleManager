@@ -75,3 +75,9 @@ mysql> CREATE TABLE schedule (
     -> PRIMARY KEY(username, schedule_date, schedule_time)
     -> ) ENGINE = InnoDB
     -> CHARACTER SET utf8 COLLATE utf8_general_ci;
+    
+    
+    // INSERT INTO user (`username`, `password`, `name`, `birthday`,
+    // `admin_flg`, `created`) VALUES ('duongvan', '123456', 'van',
+    // '1994-12-02', 0, NOW());
+    

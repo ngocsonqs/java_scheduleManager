@@ -1,0 +1,77 @@
+◆　DB名： schedule
+1. userテーブル
+
+CREATE TABLE user (
+username	VARCHAR(16)	NOT NULL, -- ユーザ名
+password	VARCHAR(16) NOT NULL, -- パスワード
+name		VARCHAR(32) NOT NULL, -- 名前
+birthday	DATE		NOT NULL, -- 生年月日
+admin_flg	INTEGER		NOT NULL	DEFAULT 0, -- 0:一般, 1:管理者
+created		DATETIME	NOT NULL, -- レコードの登録日時
+modified	TIMESTAMP			, -- レコードの更新日時
+PRIMARY KEY(username)
+)TYPE=InnoDB;
+
+2. scheduleテーブル
+
+CREATE TABLE schedule (
+username		VARCHAR(16) 	NOT NULL, -- ユーザ名
+schedule_date	DATE			NOT NULL, -- スケジュールの日付
+schedule_time	TIME			NOT NULL, -- スケジュールの時間
+title			VARCHAR(128)	NOT NULL, -- スケジュールのタイトル
+content			TEXT			NOT NULL, -- スケジュールの内容
+insert_datetime	DATETIME		NOT NULL, --　レコードの登録日時
+update_datetime	TIMESTAMP				, -- レコードの更新日時
+PRIMARY KEY(username,schedule_date,schedule_time)
+)TYPE=InnoDB;
+
+---phpmyadmin - user---
+CREATE TABLE `schedule`.`user` (
+ `username` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ユーザ名' ,
+ `password` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'パスワード' ,
+ `name` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名前' ,
+ `birthday` DATE NOT NULL COMMENT '生年月日' ,
+ `admin_flg` INT NOT NULL DEFAULT '0' COMMENT '0: 一般, 1:管理者' ,
+ `created` DATETIME NOT NULL COMMENT 'レコードの登録日時' ,
+ `modified` TIMESTAMP NULL COMMENT 'レコードの更新日時' ,
+ PRIMARY KEY (`username`)) ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = 'ユーザを管理するテーブル';
+ 
+---cmd -user ---
+mysql> CREATE TABLE user (
+    -> username VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ユーザ名',
+    -> password VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'パスワード',
+    -> name VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名前',
+    -> birthday DATE NOT NULL COMMENT '生年月日',
+    -> admin_flg INTEGER NOT NULL DEFAULT 0 COMMENT '0: 一般, 1:管理者',
+    -> created DATETIME NOT NULL COMMENT 'レコードの登録日時',
+    -> modified TIMESTAMP NULL COMMENT 'レコードの更新日時',
+    -> PRIMARY KEY (username)
+    -> ) ENGINE = InnoDB
+    -> CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '���[�U���Ǘ�����e�[�u��';
+
+------phpmyadmin - schedule-----------
+CREATE TABLE `schedule`.`a` (
+ `username` VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '���[�U��' ,
+ `schedule_date` DATE NOT NULL COMMENT '�X�P�W���[���̓��t' ,
+ `schedule_time` TIME NOT NULL COMMENT '�X�P�W���[���̎���' ,
+ `title` VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '�X�P�W���[���̃^�C�g��' ,
+ `content` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '�X�P�W���[���̓��e' ,
+ `insert_datetime` DATETIME NOT NULL COMMENT '���R�[�h�̓o�^����' ,
+ `update_datetime` TIMESTAMP NULL COMMENT '���R�[�h�̍X�V����' ,
+ PRIMARY KEY (`username`, `schedule_date`, `schedule_time`)
+) ENGINE = InnoDB
+ CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '�X�P�W���[�����Ǘ�����e�[�u��';
+
+
+-----cmd -schedule -------
+mysql> CREATE TABLE schedule (
+    -> username VARCHAR(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ���[�U��
+    -> schedule_date DATE NOT NULL, -- �X�P�W���[���̓��t
+    -> schedule_time TIME NOT NULL, -- �X�P�W���[���̎���
+    -> title VARCHAR(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- �X�P�W���[���̃^�C�g��
+    -> content TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL, -- ���R�[�h�̍X�V����
+    -> insert_datetime DATETIME NOT NULL, -- ���R�[�h�̍X�V����
+    -> update_datetime TIMESTAMP NULL, -- ���R�[�h�̍X�V����
+    -> PRIMARY KEY(username, schedule_date, schedule_time)
+    -> ) ENGINE = InnoDB
+    -> CHARACTER SET utf8 COLLATE utf8_general_ci;
