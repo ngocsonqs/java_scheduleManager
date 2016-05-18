@@ -20,6 +20,7 @@ public class UserDao {
 	/** データベースに接続 */
 	private Connection con;
 
+<<<<<<< HEAD
 	/** ユーザ名検索SQL */
 	private static final String FIND_BY_USERNAME_SQL = "SELECT * FROM user WHERE username = ?";
 
@@ -31,6 +32,22 @@ public class UserDao {
 
 	/** パスワード更新SQL */
 	private static final String UPDATE_PASS_SQL = "UPDATE user SET password = ?, modified = NOW() WHERE username = ?";
+=======
+	/** ID検索SQL */
+	private static final String FIND_BY_ID_SQL = "SELECT * "
+						   + "FROM user "
+						   + "WHERE id = ?";
+
+	 /** データ登録のSQL */
+	private static final String INSERT_SQL
+				= "INSERT INTO user (username"
+						+ ", password"
+						+ ", name,"
+						+ " birthday"
+						+ ", admin_flg"
+						+ ", created)"
+					+ " VALUES (?, ?, ?, ?, ?, ?)";
+>>>>>>> feb218af3f9e62149763d022c3f678ac82988a28
 
 	/**
 	 * このクラスのオブジェクトを構築します。
