@@ -37,7 +37,7 @@ public class UserRegister extends CuiAppBase {
  
 			// 入力させたユーザ名は既に登録したかどうかをチェックします。
 			if (userDao.findByUsername(username) != null) {
-				System.err.println("このユーザ名は既に登録されました。");
+				System.err.println("既に" + username + "さんは登録済みです。もう一度別のユーザ名で登録してください。");
 			} else {
 				user.setUsername(username);
  
