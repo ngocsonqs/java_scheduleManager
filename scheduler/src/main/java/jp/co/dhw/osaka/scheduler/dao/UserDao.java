@@ -13,27 +13,24 @@ import jp.co.dhw.osaka.scheduler.util.DBUtil;
  * userテーブルにアクセスするクラスです。
  * 
  * @author bangoku
- * @date 2016/05/17
+ * @date 2016/05/18
  */
 public class UserDao {
 
 	/** データベースに接続 */
 	private Connection con;
 
-	/** ID検索SQL */
-	private static final String FIND_BY_ID_SQL = "SELECT * "
-											   + "FROM user "
-											   + "WHERE id = ?";
+	/** ユーザ名検索SQL */
+	private static final String FIND_BY_USERNAME_SQL = "SELECT * FROM user WHERE username = ?";
 
-	 /** データ登録のSQL */
-	private static final String INSERT_SQL
-				= "INSERT INTO user (username"
-								+ ", password"
-								+ ", name,"
-								+ " birthday"
-								+ ", admin_flg"
-								+ ", created)"
-						+ " VALUES (?, ?, ?, ?, ?, ?)";
+	/** ログインするには、入力させたユーザ名とパスワードを検索するSQL */
+	private static final String FIND_USSERNAME_AND_PASS_SQL = "SELECT * FROM user WHERE username = ? AND password = ?";
+
+	/** データ登録のSQL */
+	private static final String INSERT_SQL = "INSERT INTO user (username, password, name, birthday, admin_flg, created) VALUES (?, ?, ?, ?, ?, ?)";
+
+	/** パスワード更新SQL */
+	private static final String UPDATE_PASS_SQL = "UPDATE user SET password = ?, modified = NOW() WHERE username = ?";
 
 	/**
 	 * このクラスのオブジェクトを構築します。
@@ -54,14 +51,14 @@ public class UserDao {
 	 * @throws SQLException
 	 *             データベース例外が発生した場合
 	 */
-	public User findById(int id) throws SQLException {
+	public User findByUsername(String username) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		User user = null;
 		try {
-			pstmt = con.prepareStatement(FIND_BY_ID_SQL);
+			pstmt = con.prepareStatement(FIND_BY_USERNAME_SQL);
 
-			pstmt.setInt(1, id);
+			pstmt.setString(1, username);
 
 			rs = pstmt.executeQuery();
 
@@ -71,7 +68,6 @@ public class UserDao {
 				user.setPassword(rs.getString("password"));
 				user.setName(rs.getString("name"));
 				user.setBirthday(rs.getDate("birthday"));
-				// user.setCreated(rs.getTimestamp("created"));
 				user.setCreated(rs.getTimestamp("created"));
 			}
 		} finally {
@@ -80,7 +76,41 @@ public class UserDao {
 		}
 		return user;
 	}
-	
+
+	/**
+	 * 入力させたユーザ名とパスワードで検索します。
+	 * 
+	 * @param username
+	 *            入力させたユーザ名
+	 * @param password
+	 *            入力させたパスワード
+	 * @return Userオブジェクト
+	 * @throws SQLException
+	 *             データベース例外が発生した場合
+	 */
+	public User findByUsernameAndPass(String username, String password) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		User user = null;
+		try {
+			pstmt = con.prepareStatement(FIND_USSERNAME_AND_PASS_SQL);
+
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				user = new User();
+				user.setAdminFlag(rs.getInt("admin_flg"));
+			}
+		} finally {
+			DBUtil.close(pstmt);
+			DBUtil.close(rs);
+		}
+		return user;
+	}
+
 	/**
 	 * ユーザ情報登録をします。
 	 * 
@@ -109,11 +139,37 @@ public class UserDao {
 
 			// SQL実行
 			insertedCount = pstmt.executeUpdate();
-			// System.out.println(pstmt.toString());
+
 		} finally {
 			DBUtil.close(pstmt);
 			DBUtil.close(rs);
 		}
 		return insertedCount;
+	}
+
+	/**
+	 * パスワード更新
+	 * 
+	 * @param user
+	 *            userオブジェクト
+	 * @return 更新件数、更新されない場合は0
+	 * @throws SQLException
+	 *             データベース例外が発生した場合
+	 */
+	public int updatePass(User user) throws SQLException {
+		PreparedStatement pstmt = null;
+
+		int updatedCount = 0;
+		try {
+			pstmt = con.prepareStatement(UPDATE_PASS_SQL);
+			pstmt.setString(1, user.getPassword());
+			pstmt.setString(2, user.getUsername());
+
+			updatedCount = pstmt.executeUpdate();
+		} finally {
+			DBUtil.close(pstmt);
+		}
+
+		return updatedCount;
 	}
 }
