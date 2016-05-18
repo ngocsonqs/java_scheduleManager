@@ -1,0 +1,30 @@
+package jp.co.bangoku.scheduler.menu;
+
+import jp.co.whizz_tech.ocean.config.ParameterConfig;
+import jp.co.whizz_tech.ocean.cui.CuiAppManager;
+import jp.co.whizz_tech.ocean.cui.CuiMenu;
+
+/**
+ * ユーザ管理メニュー
+ * 
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class UserManagementMenu extends CuiMenu {
+	public void startup() {
+		ParameterConfig config = CuiAppManager.getParameterConfig();
+		String username = config.getParameter("username");
+		String admin_flg = config.getParameter("admin_flg");
+		
+		// ログイン済の場合
+		if (username != null && admin_flg != null) {
+			// ログイン済の場合は
+			setItemEnabled(0, false);
+			setItemEnabled(1, true);
+		} else {
+			// 未ログインの場合は、ユーザ管理の【パスワード変更】を隠れる
+			setItemEnabled(0, true);
+			setItemEnabled(1, false);
+		}
+	}
+}

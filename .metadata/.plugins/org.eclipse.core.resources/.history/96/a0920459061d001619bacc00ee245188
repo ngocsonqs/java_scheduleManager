@@ -1,0 +1,39 @@
+package jp.co.bangoku.scheduler.main;
+
+import jp.co.whizz_tech.ocean.config.ParameterConfig;
+import jp.co.whizz_tech.ocean.cui.CuiAppBase;
+import jp.co.whizz_tech.ocean.cui.CuiAppContext;
+import jp.co.whizz_tech.ocean.cui.CuiAppManager;
+import jp.co.whizz_tech.ocean.cui.CuiMenu;
+
+/**
+ * ログアウトのクラスです。
+ * 
+ * @author bangoku
+ * @date 2016/05/16
+ */
+public class Logout extends CuiAppBase {
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		System.out.println(this.getInitParameter("username"));
+		
+		CuiAppManager.exit();
+	}
+	
+	
+	
+//	public void remove() {
+//		
+//	}
+//	
+//	CuiAppContext.
+	
+//	ParameterConfig config = CuiAppManager.getParameterConfig();
+//	String username = config.getParameter("username");
+//	
+//	if (username != null) {
+//		
+//	}
+}

@@ -1,0 +1,66 @@
+package jp.co.dhw.osaka.scheduler.user;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import jp.co.dhw.osaka.scheduler.dao.UserDao;
+import jp.co.dhw.osaka.scheduler.entity.User;
+import jp.co.dhw.osaka.scheduler.util.DBUtil;
+import jp.co.whizz_tech.ocean.cui.CuiAppBase;
+
+/**
+ * パスワード変更
+ * 
+ * @author bangoku
+ * @date 2016/05/18
+ */
+public class UserPasswordUpdate extends CuiAppBase {
+
+	@Override
+	public void execute() {
+		System.out.println("\nパスワード変更を開始します...");
+
+		Connection con = null;
+
+		try {
+			// データベースに接続
+			con = DBUtil.getConnection();
+
+			// UserDao生成
+			UserDao userDao = new UserDao(con);
+
+			// User生成
+			User user = new User();
+
+			// 現在のパスワードの入力
+			String password = inputStr("現在のパスワードを入力してください。");
+			user.setPassword(password);
+
+			// 新しいパスワードの入力
+			String newPass = inputStr("パスワードを入力してください。", "パスワードの長さは範囲を超えていますので、再入力してください。", 16);
+
+			// 新しパスワードの入力【確認用】
+			String reNewPass = inputStr("パスワードを入力してください。【確認用】");
+
+			// 入力させた新しいパスワードと確認用のパスワードと一致しているかどうかをチェックします。
+			if (newPass.equals(reNewPass)) {
+				user.setPassword(newPass);
+				int count = userDao.updatePass(user);
+				if (count >= 1) {
+					System.out.println("パスワードを変更しました。");
+				} else {
+					System.err.println("【エラー】");
+				}
+			} else {
+				System.err.println("パスワード（確認入力）と新しパスワードが一致しません。");
+			}
+		} catch (ClassNotFoundException e) {
+			System.err.println("JDBCドライバがロードできませんでした。");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.err.println("SQL例外が発生しました。");
+			e.printStackTrace();
+		}
+	}
+
+}
