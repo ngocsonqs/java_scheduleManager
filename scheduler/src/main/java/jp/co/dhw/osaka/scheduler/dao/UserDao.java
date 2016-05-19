@@ -1,192 +1,172 @@
 package jp.co.dhw.osaka.scheduler.dao;
-
+ 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
-
+ 
 import jp.co.dhw.osaka.scheduler.entity.User;
 import jp.co.dhw.osaka.scheduler.util.DBUtil;
-
+ 
 /**
  * userテーブルにアクセスするクラスです。
  * 
- * @author bangoku
- * @date 2016/05/18
+ * @author ngocsonqs
  */
 public class UserDao {
-
-	/** データベースに接続 */
-	private Connection con;
-
-<<<<<<< HEAD
-	/** ユーザ名検索SQL */
-	private static final String FIND_BY_USERNAME_SQL = "SELECT * FROM user WHERE username = ?";
-
-	/** ログインするには、入力させたユーザ名とパスワードを検索するSQL */
-	private static final String FIND_USSERNAME_AND_PASS_SQL = "SELECT * FROM user WHERE username = ? AND password = ?";
-
-	/** データ登録のSQL */
-	private static final String INSERT_SQL = "INSERT INTO user (username, password, name, birthday, admin_flg, created) VALUES (?, ?, ?, ?, ?, ?)";
-
-	/** パスワード更新SQL */
-	private static final String UPDATE_PASS_SQL = "UPDATE user SET password = ?, modified = NOW() WHERE username = ?";
-=======
-	/** ID検索SQL */
-	private static final String FIND_BY_ID_SQL = "SELECT * "
-						   + "FROM user "
-						   + "WHERE id = ?";
-
-	 /** データ登録のSQL */
-	private static final String INSERT_SQL
-				= "INSERT INTO user (username"
-						+ ", password"
-						+ ", name,"
-						+ " birthday"
-						+ ", admin_flg"
-						+ ", created)"
-					+ " VALUES (?, ?, ?, ?, ?, ?)";
->>>>>>> feb218af3f9e62149763d022c3f678ac82988a28
-
-	/**
-	 * このクラスのオブジェクトを構築します。
-	 * 
-	 * @param con
-	 *            データベース接続
-	 */
-	public UserDao(Connection con) {
-		this.con = con;
-	}
-
-	/**
-	 * 指定のIDで検索します
-	 * 
-	 * @param id
-	 *            ID
-	 * @return Userオブジェクト、見つからない場合はnull
-	 * @throws SQLException
-	 *             データベース例外が発生した場合
-	 */
-	public User findByUsername(String username) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		User user = null;
-		try {
-			pstmt = con.prepareStatement(FIND_BY_USERNAME_SQL);
-
-			pstmt.setString(1, username);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				user = new User();
-				user.setUsername(rs.getString("username"));
-				user.setPassword(rs.getString("password"));
-				user.setName(rs.getString("name"));
-				user.setBirthday(rs.getDate("birthday"));
-				user.setCreated(rs.getTimestamp("created"));
-			}
-		} finally {
-			DBUtil.close(pstmt);
-			DBUtil.close(rs);
-		}
-		return user;
-	}
-
-	/**
-	 * 入力させたユーザ名とパスワードで検索します。
-	 * 
-	 * @param username
-	 *            入力させたユーザ名
-	 * @param password
-	 *            入力させたパスワード
-	 * @return Userオブジェクト
-	 * @throws SQLException
-	 *             データベース例外が発生した場合
-	 */
-	public User findByUsernameAndPass(String username, String password) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		User user = null;
-		try {
-			pstmt = con.prepareStatement(FIND_USSERNAME_AND_PASS_SQL);
-
-			pstmt.setString(1, username);
-			pstmt.setString(2, password);
-
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				user = new User();
-				user.setAdminFlag(rs.getInt("admin_flg"));
-			}
-		} finally {
-			DBUtil.close(pstmt);
-			DBUtil.close(rs);
-		}
-		return user;
-	}
-
-	/**
-	 * ユーザ情報登録をします。
-	 * 
-	 * @param user
-	 *            userオブジェクト
-	 * @return 登録件数、登録されない場合は0
-	 * @throws SQLException
-	 *             データベース例外が発生した場合
-	 * @throws ParseException
-	 *             生年月日のパース例外が発生した場合
-	 */
-	public int insert(User user) throws SQLException {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		int insertedCount = 0;
-
-		try {
-			pstmt = con.prepareStatement(INSERT_SQL);
-			pstmt.setString(1, user.getUsername());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getName());
-			pstmt.setDate(4, user.getBirthday());
-			pstmt.setInt(5, user.getAdminFlag());
-			pstmt.setTimestamp(6, user.getCreated());
-
-			// SQL実行
-			insertedCount = pstmt.executeUpdate();
-
-		} finally {
-			DBUtil.close(pstmt);
-			DBUtil.close(rs);
-		}
-		return insertedCount;
-	}
-
-	/**
-	 * パスワード更新
-	 * 
-	 * @param user
-	 *            userオブジェクト
-	 * @return 更新件数、更新されない場合は0
-	 * @throws SQLException
-	 *             データベース例外が発生した場合
-	 */
-	public int updatePass(User user) throws SQLException {
-		PreparedStatement pstmt = null;
-
-		int updatedCount = 0;
-		try {
-			pstmt = con.prepareStatement(UPDATE_PASS_SQL);
-			pstmt.setString(1, user.getPassword());
-			pstmt.setString(2, user.getUsername());
-
-			updatedCount = pstmt.executeUpdate();
-		} finally {
-			DBUtil.close(pstmt);
-		}
-
-		return updatedCount;
-	}
+ 
+    /** データベースに接続 */
+    private Connection con;
+    
+    /** ユーザ名で検索SQL */
+    private static final String FIND_BY_USERNAME_SQL = "SELECT * FROM user WHERE username = ?";
+ 
+    /** ログインするには、入力させたユーザ名とパスワードで検索するSQL */
+    private static final String FIND_USSERNAME_AND_PASS_SQL = "SELECT * FROM user WHERE username = ? AND password = ?";
+ 
+    /** ユーザ登録のSQL */
+    private static final String INSERT_SQL = "INSERT INTO user (username, password, name, birthday, admin_flg, created) VALUES (?, ?, ?, ?, ?, ?)";
+ 
+    /** パスワード更新SQL */
+    private static final String UPDATE_PASS_SQL = "UPDATE user SET password = ?, modified = NOW() WHERE username = ?";
+ 
+    /**
+     * このクラスのオブジェクトを構築します。
+     * 
+     * @param con
+     *            データベース接続
+     */
+    public UserDao(Connection con) {
+        this.con = con;
+    }
+ 
+    /**
+     * 指定のIDで検索します
+     * 
+     * @param id
+     *            ID
+     * @return Userオブジェクト、見つからない場合はnull
+     * @throws SQLException
+     *             データベース例外が発生した場合
+     */
+    public User findByUsername(String username) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        User user = null;
+        try {
+            pstmt = con.prepareStatement(FIND_BY_USERNAME_SQL);
+ 
+            pstmt.setString(1, username);
+ 
+            rs = pstmt.executeQuery();
+ 
+            if (rs.next()) {
+                user = new User();
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setBirthday(rs.getDate("birthday"));
+                user.setCreated(rs.getTimestamp("created"));
+            }
+        } finally {
+            DBUtil.close(pstmt);
+            DBUtil.close(rs);
+        }
+        return user;
+    }
+ 
+    /**
+     * 入力させたユーザ名とパスワードで検索します。
+     * 
+     * @param username
+     *            入力させたユーザ名
+     * @param password
+     *            入力させたパスワード
+     * @return Userオブジェクト
+     * @throws SQLException
+     *             データベース例外が発生した場合
+     */
+    public User findByUsernameAndPass(String username, String password) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        User user = null;
+        try {
+            pstmt = con.prepareStatement(FIND_USSERNAME_AND_PASS_SQL);
+ 
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+ 
+            rs = pstmt.executeQuery();
+ 
+            if (rs.next()) {
+                user = new User();
+                user.setAdminFlag(rs.getInt("admin_flg"));
+            }
+        } finally {
+            DBUtil.close(pstmt);
+            DBUtil.close(rs);
+        }
+        return user;
+    }
+ 
+    /**
+     * ユーザ情報登録をします。
+     * 
+     * @param user
+     *            userオブジェクト
+     * @return 登録件数、登録されない場合は0
+     * @throws SQLException
+     *             データベース例外が発生した場合
+     * @throws ParseException
+     *             生年月日のパース例外が発生した場合
+     */
+    public int insert(User user) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+ 
+        int insertedCount = 0;
+ 
+        try {
+            pstmt = con.prepareStatement(INSERT_SQL);
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getName());
+            pstmt.setDate(4, user.getBirthday());
+            pstmt.setInt(5, user.getAdminFlag());
+            pstmt.setTimestamp(6, user.getCreated());
+ 
+            // SQL実行
+            insertedCount = pstmt.executeUpdate();
+        } finally {
+            DBUtil.close(pstmt);
+            DBUtil.close(rs);
+        }
+        return insertedCount;
+    }
+ 
+    /**
+     * パスワード更新
+     * 
+     * @param user
+     *            userオブジェクト
+     * @return 更新件数、更新されない場合は0
+     * @throws SQLException
+     *             データベース例外が発生した場合
+     */
+    public int updatePass(User user) throws SQLException {
+        PreparedStatement pstmt = null;
+ 
+        int updatedCount;
+        try {
+            pstmt = con.prepareStatement(UPDATE_PASS_SQL);
+            pstmt.setString(1, user.getPassword());
+            pstmt.setString(2, user.getUsername());
+ 
+            updatedCount = pstmt.executeUpdate();
+        } finally {
+            DBUtil.close(pstmt);
+        }
+        return updatedCount;
+    }
 }

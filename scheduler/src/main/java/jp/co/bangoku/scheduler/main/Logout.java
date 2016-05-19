@@ -18,8 +18,11 @@ public class Logout extends CuiAppBase {
 	@Override
 	public void execute() {
 		ParameterConfig config = CuiAppManager.getParameterConfig();
-
+		 
 		// ユーザ名のパラメータの値をnullにする。
-		config.addParameter("username", null);
+		if (config.getParameter("username") != null) {			
+			config.addParameter("username", null);
+			System.out.println("【システムをログアウトしました】");
+		}
 	}
 }

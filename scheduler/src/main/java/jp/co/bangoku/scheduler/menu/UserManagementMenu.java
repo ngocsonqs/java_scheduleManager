@@ -18,19 +18,18 @@ public class UserManagementMenu extends CuiMenu {
 		ParameterConfig config = CuiAppManager.getParameterConfig();
 		String username = config.getParameter("username");
 		String admin_flg = config.getParameter("admin_flg");
-		
+
 		// ログイン済の場合
 		if (username != null && admin_flg != null) {
 			// ログイン済の場合は、ユーザ管理メニューの【ユーザ登録】を隠れる
 			setItemEnabled(0, false);
-			
+
 			// ログイン済の場合は、ユーザ管理メニューの【パスワード変更】を隠れる
 			setItemEnabled(1, true);
-		}
-		else {
+		} else {
 			// 未ログインの場合は、ユーザ管理メニューの【ユーザ登録】を隠れる
 			setItemEnabled(0, true);
-			
+
 			// 未ログインの場合は、ユーザ管理メニューの【パスワード変更】を隠れる
 			setItemEnabled(1, false);
 		}
